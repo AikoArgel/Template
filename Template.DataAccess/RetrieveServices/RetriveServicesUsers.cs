@@ -76,54 +76,77 @@ namespace Template.DataAccess.RetriveServices
         }
         public Users GetUserByEmail(string email)
         {
-            var SQLConnection_ = new SQLConnection();
-            var listParam = new List<BaseParamSQL>(){
-                    new BaseParamSQL()
-                    {
-                        Key = "Email",
-                        Value = email,
-                        LenType = 150,
-                        Type = BaseParamSQL.AllType.VarChar
-                    }
-                };
-            var model = new BaseDataSQL()
-            {
-                Cmd = "[dbo].[GetUserByEmail]",
-                CmdType = BaseDataSQL.AllCmdType.SP,
-                Param = listParam
+            #region GetUserByEmail without Entity
+            //var SQLConnection_ = new SQLConnection();
+            //var listParam = new List<BaseParamSQL>(){
+            //        new BaseParamSQL()
+            //        {
+            //            Key = "Email",
+            //            Value = email,
+            //            LenType = 150,
+            //            Type = BaseParamSQL.AllType.VarChar
+            //        }
+            //    };
+            //var model = new BaseDataSQL()
+            //{
+            //    Cmd = "[dbo].[GetUserByEmail]",
+            //    CmdType = BaseDataSQL.AllCmdType.SP,
+            //    Param = listParam
 
+            //};
+            //var User = ChangeToModel(SQLConnection_.SendSQL(model), ModelsName.User);
+            #endregion
+            TemplateEntities_ = new TemplateEntities();
+            var users = TemplateEntities_.GetUserByEmail(email).FirstOrDefault();
+            Users_ = new Users()
+            {
+                UserID = users.UserID,
+                UserName = users.UserName,
+                Email = users.Email,
+                Available = users.Available
             };
-            var User = ChangeToModel(SQLConnection_.SendSQL(model), ModelsName.User);
-            return User;
+            return Users_;
         }
         public Users GetUserLogin(string user, string password)
         {
-            var SQLConnection_ = new SQLConnection();
-            var listParam = new List<BaseParamSQL>(){
-                    new BaseParamSQL()
-                    {
-                        Key = "User",
-                        Value = user,
-                        LenType = 150,
-                        Type = BaseParamSQL.AllType.VarChar
-                    },
-                    new BaseParamSQL()
-                    {
-                        Key = "Password",
-                        Value = password,
-                        LenType = 50,
-                        Type = BaseParamSQL.AllType.VarChar
-                    }
-                };
-            var model = new BaseDataSQL()
-            {
-                Cmd = "[dbo].[GetUserLogin]",
-                CmdType = BaseDataSQL.AllCmdType.SP,
-                Param = listParam
+            #region GetUserLogin without Entity
+            //var SQLConnection_ = new SQLConnection();
+            //var listParam = new List<BaseParamSQL>(){
+            //        new BaseParamSQL()
+            //        {
+            //            Key = "User",
+            //            Value = user,
+            //            LenType = 150,
+            //            Type = BaseParamSQL.AllType.VarChar
+            //        },
+            //        new BaseParamSQL()
+            //        {
+            //            Key = "Password",
+            //            Value = password,
+            //            LenType = 50,
+            //            Type = BaseParamSQL.AllType.VarChar
+            //        }
+            //    };
+            //var model = new BaseDataSQL()
+            //{
+            //    Cmd = "[dbo].[GetUserLogin]",
+            //    CmdType = BaseDataSQL.AllCmdType.SP,
+            //    Param = listParam
 
+            //};
+            //var User = ChangeToModel(SQLConnection_.SendSQL(model), ModelsName.User);
+            //return User;
+            #endregion
+            TemplateEntities_ = new TemplateEntities();
+            var users = TemplateEntities_.GetUserLogin(user, password).FirstOrDefault();
+            Users_ = new Users()
+            {
+                UserID = users.UserID,
+                UserName = users.UserName,
+                Email = users.Email,
+                Available = users.Available
             };
-            var User = ChangeToModel(SQLConnection_.SendSQL(model), ModelsName.User);
-            return User;
+            return Users_;
         }
     }
 }
